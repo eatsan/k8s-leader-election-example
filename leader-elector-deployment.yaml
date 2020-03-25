@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leader-elector
+  labels:
+    app: leader-elector
+spec:
+  selector:
+    matchLabels:
+      app: leader-elector
+  replicas: 3
+  template:
+      metadata:
+        labels:
+          app: leader-elector
+      spec:
+        serviceAccountName: leader-elector
+        containers:
+          - name: leader-elector
+            image: fredrikjanssonse/leader-elector:0.6
+            args:
+            - --election=example
+            - --http=0.0.0.0:4040
+            ports:
+              - name: leader-elector
+                containerPort: 80
+                protocol: TCP
+          - name: nodejs-le
+            image: emrea/leader-elector-nodejs:v1.3
+            ports:
+              - containerPort: 8080
+
+
