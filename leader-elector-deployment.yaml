@@ -26,7 +26,7 @@ spec:
                 containerPort: 80
                 protocol: TCP
           - name: nodejs-le
-            image: emrea/leader-elector-nodejs:v1.3
+            image: emrea/leader-elector-nodejs:v1.6
             ports:
               - containerPort: 8080
 

@@ -8,8 +8,7 @@ var leader = {};
 
 // This will hold the IP address of the container
 var myIpAddress;
-
-let date1 = new Date();
+var myHostname;
 
 // A callback that is used for our outgoing client requests to the sidecar
 var cb = function(response) {
@@ -49,14 +48,27 @@ var updateLeader = function() {
 };
 
 var handleRequest = function(request, response) {
+	// Get the current date object
+	let date1 = new Date();
+
+	// Set my hostname
+	myHostname = os.hostname();
+
 	//Some logging to the console
 	console.log('Received request for URL: ' + request.url);
 	//response.writeHead(200);
 	response.statusCode = 200; // Send 200 OK
 	response.write('<html>');
 	response.write('<body>');
-	response.write("<h1> My Pod IP Address: "+ myIpAddress  +"</h1>");
-	response.write("<h1> Current Leader pod name: "+ leader.name  +"</h1>");
+	response.write("<h2> My hostname: " + myHostname + "</h2>");
+	response.write("<h2> My IP      : "+ myIpAddress  +"</h2>");
+	if (myHostname == leader.name) {
+		response.write("<h2> I am the current master! </h2>");
+	}
+	else{
+		response.write("<h2> The master is at hostname: "+ leader.name  +"</h2>");
+	}
+
 	response.write("<p> Current time: "+ date1.getHours() + ":" + date1.getMinutes() + ":" + date1.getSeconds() + "</p>");
 	response.write('</body>');
 	response.write('</html>');
