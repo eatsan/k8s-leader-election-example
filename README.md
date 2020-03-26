@@ -5,7 +5,6 @@ The leader elector sidecar container is based on the following example: https://
 
 ## Prerequisites
 * Minikube: This repository is tested with minikube v1.8.1.  
-* Ingress Controller: You can enable NGINX Ingress Controller for minikube.
 * Internet access from your minikube VM & docker images. 
  
 ## Installation 
@@ -14,11 +13,6 @@ Start your local cluster.
 minikube start
 ````
 
-If you are planning to use NGINX Ingress Controller for minikube, enable the addon.
-
-``` 
-minikube addons enable ingress 
-```
 
 ### Create a new service account
 Create a new service account named leader-elector for the app. 
@@ -66,7 +60,7 @@ kubectl get deployment -n default
 ```
 
 ### Create Service object
-Service object uses `type=NodePort` to expose service via External IP. This will require an Ingress controller to be configured. As mentioned before, NGINX Ingress controller can be enabled for minikube. 
+Service object uses `type=NodePort` to expose service via External IP. 
 
 ```
 kubectl apply -f leader-elector-service.yaml
@@ -79,11 +73,16 @@ kubectl describe service leader-elector-service
 
 ### Access to the service 
 
-You can visit the service from the NodePort. You can obtain the URL via: 
+You can visit the service from the `NodeIp:NodePort`. You can obtain the URL via: 
 ```
 minikube service leader-elector-service --url
 ``` 
-Open the URL in your browser, you are expected to see smth similar to the following. 
+or directly open the exposed service in your default browser via
+```
+minikube service leader-elector-service
+```
+
+Whe you open the URL in your browser, you are expected to see the following page. 
 
 ![web-gui-example](/img/web-sample.png)
 
