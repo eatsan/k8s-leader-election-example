@@ -83,6 +83,10 @@ You can visit the service from the NodePort. You can obtain the URL via:
 ```
 minikube service leader-elector-service --url
 ``` 
+Open the URL in your browser, you are expected to see smth similar to the following. 
+
+![web-gui-example](/img/web-sample.png)
+
 
 ## Testing
 If an unexpected condition occurs for the current leader, the group will choose a new leader immediately. First identify the existing leader via your browser. Then you can test the recovery as follows: 
