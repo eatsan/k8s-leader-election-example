@@ -126,6 +126,9 @@ There is a specific annotation with key "control-plane.alpha.kubernetes.io/leade
 ![k8s-leader-elector-example](/img/k8s-leader-elector-example.png)
 
 
+## Helm chart
+TODO
+
 ## License
 
 This repository is licensed under the Apache 2.0 License - see the [LICENSE.md](LICENSE.md) file for details.
